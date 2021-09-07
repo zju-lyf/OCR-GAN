@@ -18,24 +18,24 @@ pip install -r requirements.txt
 
 ### Inference
 
-- Download pretraind [NetG](https://drive.google.com/) for the class "leather" in MVTec dataset to the path `output/ocr_gan_aug/leather/train/weights/netG_best.pth`.
-- Download pretraind [NetD](https://drive.google.com/) for the class "leather" in MVTec dataset to the path `output/ocr_gan_aug/leather/train/weights/netD_best.pth`.
+- Download pretraind [NetG](https://drive.google.com/) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netG_best.pth`.
+- Download pretraind [NetD](https://drive.google.com/) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netD_best.pth`.
 
 ```shell
-python test.py --dataset leather --isize 256 --model ocr_gan_aug --load_weights
+python test.py --dataset screw --isize 256 --model ocr_gan_aug --load_weights
 ```
 
 ### Training
 
 Train **OCR-GAN** model.
-For example, train the model for the class "leather" in MVTec dataset,
+For example, train the model for the class "screw" in MVTec dataset,
 ```shell
-python train.py --dataset leather --isize 256 --niter 200 --model ocr_gan_aug --batchsize 32
+python train.py --dataset screw --isize 256 --niter 200 --model ocr_gan_aug --batchsize 32
 ```
 ## Datasets
 
 ```
-leather
+screw
 ├── test
 │   ├── good
 │   │   └── 000.png

@@ -18,8 +18,8 @@ pip install -r requirements.txt
 
 ### Inference
 
-- Download pretraind [NetG](https://drive.google.com/) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netG_best.pth`.
-- Download pretraind [NetD](https://drive.google.com/) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netD_best.pth`.
+- Download pretraind [NetG](https://drive.google.com/file/d/1bTy7cyDV14lZMK5CEoRCiuib2sDUhz7A/view?usp=sharing) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netG_best.pth`.
+- Download pretraind [NetD](https://drive.google.com/file/d/1kpGjjr3qKNORBwMzn6ry84pnmTrmtxS8/view?usp=sharing) for the class "screw" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netD_best.pth`.
 
 ```shell
 python test.py --dataset screw --isize 256 --model ocr_gan_aug --load_weights

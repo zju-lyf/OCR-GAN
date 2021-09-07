@@ -23,13 +23,14 @@ import pdb
 
 
 class Ocr_Gan_Aug(BaseModel_Aug):
-    def name(self): return 'ocr_gan_aug'
+    # def name(self): return 'ocr_gan_aug'
 
     def __init__(self, opt, data=None):
         super(Ocr_Gan_Aug, self).__init__(opt, data)
         ##
 
         # -- Misc attributes
+        self.name = 'ocr_gan_aug'
         self.add_noise = True
         self.epoch = 0
         self.times = []
@@ -223,6 +224,8 @@ class Ocr_Gan_Aug(BaseModel_Aug):
                              (torch.max(self.an_scores) - torch.min(self.an_scores))
             auc = roc(self.gt_labels, self.an_scores)
             performance = OrderedDict([('Avg Run Time (ms/batch)', self.times), ('AUC', auc)])
+            if self.opt.load_weights:
+                self.visualizer.print_current_performance(performance, auc)
 
             ##
             # PLOT HISTOGRAM

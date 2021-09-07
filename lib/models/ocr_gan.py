@@ -19,13 +19,14 @@ from lib.loss import l2_loss
 from lib.evaluate import roc
 from lib.models.basemodel import BaseModel
 class Ocr_Gan(BaseModel):
-    def name(self): return 'OCR-GAN'
+    # def name(self): return 'OCR-GAN'
 
     def __init__(self, opt, data=None):
         super(Ocr_Gan, self).__init__(opt, data)
         ##
 
         # -- Misc attributes
+        self.name = 'ocr_gan'
         self.add_noise = True
         self.epoch = 0
         self.times = []
@@ -34,7 +35,6 @@ class Ocr_Gan(BaseModel):
         ##
         # Create and initialize networks.
         self.netg = define_G(self.opt, norm='batch', use_dropout=False, init_type='normal')
-        #self.netg_lap = define_G_atten(self.opt, norm='batch', use_dropout=False, init_type='normal')
         self.netd = define_D(self.opt, norm='batch', use_sigmoid=False, init_type='normal')
 
         ##
@@ -71,15 +71,12 @@ class Ocr_Gan(BaseModel):
         # Setup optimizer
         if self.opt.isTrain:
             self.netg.train()
-            #self.netg.train()
             self.netd.train()
             self.optimizers  = []
             self.optimizer_d = optim.Adam(self.netd.parameters(), lr=self.opt.lr, betas=(self.opt.beta1, 0.999))
             self.optimizer_g = optim.Adam(self.netg.parameters(), lr=self.opt.lr, betas=(self.opt.beta1, 0.999))
-            #self.optimizer_g_lap = optim.Adam(self.netg_lap.parameters(), lr=self.opt.lr, betas=(self.opt.beta1, 0.999))
             self.optimizers.append(self.optimizer_d)
             self.optimizers.append(self.optimizer_g)
-            #self.optimizers.append(self.optimizer_g_lap)
             self.schedulers = [get_scheduler(optimizer, opt) for optimizer in self.optimizers]
 
     def forward(self):
@@ -90,7 +87,6 @@ class Ocr_Gan(BaseModel):
         """ Forward propagate through netG
         """
         self.fake_lap, self.fake_res = self.netg((self.input_lap + self.noise, self.input_res + self.noise))
-        #self.fake_lap = self.netg_lap(self.input_lap + self.noise)
         self.fake = self.fake_res + self.fake_lap
 
     def forward_d(self):
@@ -115,7 +111,6 @@ class Ocr_Gan(BaseModel):
         self.err_d_fake = self.l_adv(pred_fake, self.fake_label)
 
         # Real
-        # pred_real, feat_real = self.netd(self.input)
         self.err_d_real = self.l_adv(self.pred_real, self.real_label)
 
         # Combine losses.
@@ -126,10 +121,8 @@ class Ocr_Gan(BaseModel):
         """ Update Generator Network.
         """       
         self.optimizer_g.zero_grad()
-        #self.optimizer_g_lap.zero_grad()
         self.backward_g()
         self.optimizer_g.step()
-        #self.optimizer_g_lap.step()
 
     def update_netd(self):
         """ Update Discriminator Network.
@@ -184,7 +177,6 @@ class Ocr_Gan(BaseModel):
                 # Forward - Pass
                 self.set_input(data)
                 self.fake_lap, self.fake_res = self.netg((self.input_lap, self.input_res))
-                #self.fake_lap = self.netg_lap(self.input_lap)
                 self.fake = self.fake_res + self.fake_lap
 
                 _, self.feat_real = self.netd(self.input_res + self.input_lap)
@@ -211,8 +203,6 @@ class Ocr_Gan(BaseModel):
                     dst = os.path.join(self.opt.outf, self.opt.name, 'test', 'images')
                     if not os.path.isdir(dst): os.makedirs(dst)
                     real, fake, _ = self.get_current_images()
-                    #self.visualizer.save_current_images(self.epoch, reals, fakes, fixed)
-                    #print('save')
                     vutils.save_image(real, '%s/real_%03d.png' % (dst, i+1), normalize=True)
                     vutils.save_image(fake, '%s/fake_%03d.png' % (dst, i+1), normalize=True)
 
@@ -224,10 +214,9 @@ class Ocr_Gan(BaseModel):
             self.an_scores = (self.an_scores - torch.min(self.an_scores)) / \
                              (torch.max(self.an_scores) - torch.min(self.an_scores))
             auc = roc(self.gt_labels, self.an_scores)
-            #pre, recall = pre_recall(self.gt_labels, self.an_scores)
-            #pdb.set_trace()
-            #performance = OrderedDict([('Avg Run Time (ms/batch)', self.times), ('AUC', auc), ('Precision', pre), ('Recall', recall)])
             performance = OrderedDict([('Avg Run Time (ms/batch)', self.times), ('AUC', auc)])
+            if self.opt.load_weights:
+                self.visualizer.print_current_performance(performance, auc)
 
             ##
             # PLOT HISTOGRAM

@@ -1,17 +1,3 @@
-"""
-TRAIN SKIP/GANOMALY
-
-. Example: Run the following command from the terminal.
-    run train.py                                    \
-        --model <skipganomaly, ganomaly>            \
-        --dataset cifar10                           \
-        --abnormal_class airplane                   \
-        --display                                   \
-"""
-
-##
-# LIBRARIES
-
 from options import Options
 from lib.data.dataloader import load_data_FD_aug
 from lib.models import load_model

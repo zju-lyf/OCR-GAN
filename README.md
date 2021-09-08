@@ -8,7 +8,7 @@ For any inquiries, please contact Yufei Liang at [yufeiliang@zju.edu.cn](mailto:
 
 ### Requirements
 
-This code has been developed under `Python3.7`, `PyTorch 1.2.0` and `CUDA 10.1` on `Ubuntu 16.04`. 
+This code has been developed under `Python3.7`, `PyTorch 1.2.0` and `CUDA 10.0` on `Ubuntu 16.04`. 
 
 
 ```shell

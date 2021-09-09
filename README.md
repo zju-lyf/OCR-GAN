@@ -41,8 +41,8 @@ data
 ```
 ### Inference
 
-- Download pretraind [NetG](https://drive.google.com/file/d/1Aoad_mlBwEsi2fI7KA3jb9l-O597pqa0/view?usp=sharing) for the class "metal_nut" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netG_best.pth`.
-- Download pretraind [NetD](https://drive.google.com/file/d/1bVyQ3NXZrcBb3HG1KB7lOm8A3BnbQsmh/view?usp=sharing) for the class "metal_nut" in MVTec dataset to the path `output/ocr_gan_aug/screw/train/weights/netD_best.pth`.
+- Download pretraind [NetG](https://drive.google.com/file/d/1Aoad_mlBwEsi2fI7KA3jb9l-O597pqa0/view?usp=sharing) for the class "metal_nut" in MVTec dataset to the path `output/ocr_gan_aug/metal_nut/train/weights/netG_best.pth`.
+- Download pretraind [NetD](https://drive.google.com/file/d/1bVyQ3NXZrcBb3HG1KB7lOm8A3BnbQsmh/view?usp=sharing) for the class "metal_nut" in MVTec dataset to the path `output/ocr_gan_aug/metal_nut/train/weights/netD_best.pth`.
 
 ```shell
 python test.py --dataset metal_nut --isize 256 --model ocr_gan_aug --load_weights

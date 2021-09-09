@@ -25,12 +25,13 @@ import pdb
 class Ocr_Gan_Aug(BaseModel_Aug):
     # def name(self): return 'ocr_gan_aug'
 
-    def __init__(self, opt, data=None):
-        super(Ocr_Gan_Aug, self).__init__(opt, data)
+    def __init__(self, opt, data, classes):
+        super(Ocr_Gan_Aug, self).__init__(opt, data, classes)
         ##
 
         # -- Misc attributes
         self.name = 'ocr_gan_aug'
+        self.classes = classes
         self.add_noise = True
         self.epoch = 0
         self.times = []

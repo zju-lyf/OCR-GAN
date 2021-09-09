@@ -115,7 +115,7 @@ class Data:
         self.valid = valid
 
 ##
-def load_data(opt):
+def load_data(opt, classes):
     """ Load Data
 
     Args:
@@ -131,7 +131,10 @@ def load_data(opt):
     ##
     # LOAD DATA SET
     if opt.dataroot == '':
-        opt.dataroot = './data/{}'.format(opt.dataset)
+        if opt.dataset == 'all':
+            opt.dataroot = './data/{}'.format(classes)
+        else:
+            opt.dataroot = './data/{}'.format(opt.dataset)
 
     transform = transforms.Compose([transforms.Resize(opt.isize),
                                     transforms.CenterCrop(opt.isize),
@@ -147,7 +150,7 @@ def load_data(opt):
 
     return Data(train_dl, valid_dl)
 
-def load_data_FD(opt):
+def load_data_FD(opt, classes):
     """ Load Data
 
     Args:
@@ -163,7 +166,10 @@ def load_data_FD(opt):
     ##
     # LOAD DATA SET
     if opt.dataroot == '':
-        opt.dataroot = './data/{}'.format(opt.dataset)
+        if opt.dataset == 'all':
+            opt.dataroot = './data/{}'.format(classes)
+        else:
+            opt.dataroot = './data/{}'.format(opt.dataset)
 
     transform = transforms.Compose([transforms.Resize(opt.isize),
                                     transforms.CenterCrop(opt.isize),
@@ -179,7 +185,7 @@ def load_data_FD(opt):
 
     return Data(train_dl, valid_dl)
 
-def load_data_FD_aug(opt):
+def load_data_FD_aug(opt, classes):
     """ Load Data
 
     Args:
@@ -195,7 +201,10 @@ def load_data_FD_aug(opt):
     ##
     # LOAD DATA SET
     if opt.dataroot == '':
-        opt.dataroot = './data/{}'.format(opt.dataset)
+        if opt.dataset == 'all':
+            opt.dataroot = './data/{}'.format(classes)
+        else:
+            opt.dataroot = './data/{}'.format(opt.dataset)
 
     transform = transforms.Compose([transforms.Resize(opt.isize),
                                     transforms.CenterCrop(opt.isize),

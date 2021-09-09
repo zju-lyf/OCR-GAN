@@ -25,7 +25,7 @@ from PIL import Image
 class BaseModel_Aug():
     """ Base Model for ocr-gan
     """
-    def __init__(self, opt, data):
+    def __init__(self, opt, data, classes):
         ##
         # Seed for deterministic behavior
         self.seed(opt.manualseed)
@@ -213,7 +213,7 @@ class BaseModel_Aug():
         best_auc = 0
 
         # Train for niter epochs.
-        print(f">> Training {self.name} on {self.opt.dataset} to detect {self.opt.note}")
+        print(f">> Training {self.name} on {self.classes} to detect {self.opt.note}")
         for self.epoch in range(self.opt.iter, self.opt.niter):
             self.train_one_epoch()
             res = self.test()
@@ -222,6 +222,7 @@ class BaseModel_Aug():
                 self.save_weights(self.epoch)
             self.visualizer.print_current_performance(res, best_auc)
         print(">> Training model %s.[Done]" % self.name)
+        return best_auc
 
     ##
     def test(self):

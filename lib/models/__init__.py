@@ -2,7 +2,7 @@
 import importlib
 
 ##
-def load_model(opt, dataloader):
+def load_model(opt, dataloader,classes):
     """ Load model based on the model name.
 
     Arguments:
@@ -16,4 +16,4 @@ def load_model(opt, dataloader):
     model_path = f"lib.models.{model_name}"
     model_lib  = importlib.import_module(model_path)
     model = getattr(model_lib, model_name.title())
-    return model(opt, dataloader)
+    return model(opt, dataloader, classes)

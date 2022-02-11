@@ -54,10 +54,3 @@ Train **OCR-GAN** model.
 ```shell
 python train.py --dataset all --isize 256 --niter 200 --model ocr_gan_aug --batchsize 32
 ```
-
-### Citation
-
-If you think this work is useful for your research, please consider citing:
-
-
-### Acknowledgements

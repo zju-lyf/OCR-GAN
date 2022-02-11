@@ -52,5 +52,5 @@ python test.py --dataset metal_nut --isize 256 --model ocr_gan_aug --load_weight
 
 Train **OCR-GAN** model.
 ```shell
-python train.py --dataset all --isize 256 --niter 200 --model ocr_gan_aug --batchsize 32
+python train_all.py --dataset all --isize 256 --niter 200 --model ocr_gan_aug --batchsize 32
 ```
